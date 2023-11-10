@@ -1,29 +1,36 @@
 from random import randint
 
-point_vie = 50
-point_vie_ennemi = 50
-potions = 3
-potions_recup = randint(15, 50)
-attaque_ennemies = randint(5, 15)
-attaque = randint(5, 10)
+life = 50
+life_ennemi = 50
 
-while point_vie > 0:
+while life != 0 and life_ennemi != 0:
 
-    print("Souhaitez-vous attaquer (1) ou utiliser une potion (2) ?")
-    print(f"Vous avez", point_vie, "points de vies et ", potions,"potion(s) en main.")
+    attaque = randint(1, 10)
+    attaque_ennemi = randint(1, 10)
+    potion_effect = randint (1, 15)
+    potion = 3
 
-    answer = input("")
 
-    if int(answer) == 1 and point_vie_ennemi != 0:
-        point_vie_ennemi = point_vie_ennemi - attaque
-        print(f"Votre attaque a fait {attaque} points de dégats ")
-        print(f"Il reste {point_vie_ennemi} points de vie a l'ennemi")
-        point_vie = point_vie - attaque_ennemies
-        print(f"L'ennemi vous a infligé {attaque_ennemies} points de dégats il te reste {point_vie} points de vie")
+    print("\n")
+    print("tu as", life, "points de vie et", potion, "potions")
+    print("\n")
+    print ("quel est ton choix ? (1 - attaque ; 2 - potion)")
+    choix_utilisateur = input("")
+    print("\n")
 
-    elif int(answer) == 2 and potions != 0 and point_vie_ennemi != 0:
-        potions -= 1
-        point_vie = point_vie + potions_recup
-        print(f"Vous avez", point_vie, "points de vies et ", potions,"potion(s) en main.")
-        point_vie = point_vie - attaque_ennemies
-        print(f"L'ennemi vous a infligé {attaque_ennemies} points de dégats il te reste {point_vie} points de vie")
+    if int(choix_utilisateur) == 1:
+        print("tu as lancé un sort magique qui a infligé", attaque,"dégats à l'ennemi")
+        life_ennemi -= attaque
+        print("ennemi lui reste", life_ennemi, "points de vie")
+        print("attaque ennemi est de", attaque_ennemi)
+        life -= attaque_ennemi
+        print("il te reste", life, "points de vie")
+
+    elif int(choix_utilisateur) == 2 and potion > 0:
+        print("tu as utilisé une potion pour récupérer", potion_effect,"points de vie")
+        life += potion_effect
+        potion -= 1
+        print("avec la potion il te reste", life, "points de vie car tu as pris une potion de", potion, "points")
+
+    if life <= 0 or life_ennemi <= 0:
+        print("le jeu est terminé")
